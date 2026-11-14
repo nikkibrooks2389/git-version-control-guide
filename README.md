@@ -17,4 +17,9 @@ All pages use `css/styles.css`, adapted from the companion HTML guide. Each less
 
 To serve locally, run `python3 -m http.server 8000` from this folder and visit http://localhost:8000. Direct file opening also works.
 
-This is a separate project from html-guide. Its source repository is https://github.com/nikkibrooks2389/git-version-control-guide. The website has not been published to a web hosting service.
+This is a separate project from html-guide.
+
+- Live website: https://nikkibrooks2389.github.io/git-version-control-guide/
+- Public source repository: https://github.com/nikkibrooks2389/git-version-control-guide
+
+GitHub Pages publishes the website from the root of the `main` branch.
