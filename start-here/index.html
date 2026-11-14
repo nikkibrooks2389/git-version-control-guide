@@ -1,17 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your First Saved Version | Git &amp; Version Control Guide</title>
-  <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-  <main class="lesson">
-<a class="back-link" href="../index.html">← All topics</a><header><p class="eyebrow">GIT &amp; VERSION CONTROL · START HERE</p><h1>Your First Saved Version</h1><p>Follow one small website from an ordinary folder to a local Git commit. No online host or account is needed.</p></header><section><h2>At a glance</h2><div class="table-scroll"><table><thead><tr><th scope="col">Term or command</th><th scope="col">What it means</th><th scope="col">When to use it</th></tr></thead><tbody><tr><th scope="row">Save</th><td>Writes a file to your computer.</td><td>Do this in your editor before reviewing your changes.</td></tr><tr><th scope="row">Stage</th><td>Selects the current content for the next commit.</td><td>Use git add for the files you intend to record.</td></tr><tr><th scope="row">Commit</th><td>Records a snapshot in local history.</td><td>Use after reviewing the staged changes.</td></tr><tr><th scope="row">Push</th><td>Sends commits to a remote repository.</td><td>Only needed when sharing with a configured remote; it is not part of this first local example.</td></tr></tbody></table></div></section><p class="note">Commands are examples, not an interactive terminal. Run them in your own learning repository after checking the prerequisites. Output, paths, commit IDs, and wording can vary. Host-specific instructions are labeled.</p><section><h2>1. Prepare the tools</h2><p>Install Git using the links in <a href="../02-setup/index.html">Setup and Tools</a>. Open a terminal: Git Bash or PowerShell on Windows, Terminal on macOS, or your Linux terminal. In VS Code, Terminal → New Terminal opens one inside the editor. A terminal runs commands; do not paste them into an HTML file.</p><p class="note">Use a new learning folder rather than an existing project. The commands below use a simple folder name without spaces. Run them one at a time.</p></section><section><h2>2. Create the folder</h2><pre><code>mkdir my-website
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your First Saved Version | Git &amp; Version Control Guide</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <main class="lesson">
+      <a class="back-link" href="../index.html">← All topics</a>
+      <header>
+        <p class="eyebrow">GIT &amp; VERSION CONTROL · START HERE</p>
+        <h1>Your First Saved Version</h1>
+        <p>
+          Follow one small website from an ordinary folder to a local Git
+          commit. No online host or account is needed.
+        </p>
+      </header>
+      <section>
+        <h2>At a glance</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Term or command</th>
+                <th scope="col">What it means</th>
+                <th scope="col">When to use it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Save</th>
+                <td>Writes a file to your computer.</td>
+                <td>Do this in your editor before reviewing your changes.</td>
+              </tr>
+              <tr>
+                <th scope="row">Stage</th>
+                <td>Selects the current content for the next commit.</td>
+                <td>Use git add for the files you intend to record.</td>
+              </tr>
+              <tr>
+                <th scope="row">Commit</th>
+                <td>Records a snapshot in local history.</td>
+                <td>Use after reviewing the staged changes.</td>
+              </tr>
+              <tr>
+                <th scope="row">Push</th>
+                <td>Sends commits to a remote repository.</td>
+                <td>
+                  Only needed when sharing with a configured remote; it is not
+                  part of this first local example.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <p class="note">
+        Commands are examples, not an interactive terminal. Run them in your own
+        learning repository after checking the prerequisites. Output, paths,
+        commit IDs, and wording can vary. Host-specific instructions are
+        labeled.
+      </p>
+      <section>
+        <h2>1. Prepare the tools</h2>
+        <p>
+          Install Git using the links in
+          <a href="../02-setup/index.html">Setup and Tools</a>. Open a terminal:
+          Git Bash or PowerShell on Windows, Terminal on macOS, or your Linux
+          terminal. In VS Code, Terminal → New Terminal opens one inside the
+          editor. A terminal runs commands; do not paste them into an HTML file.
+        </p>
+        <p class="note">
+          Use a new learning folder rather than an existing project. The
+          commands below use a simple folder name without spaces. Run them one
+          at a time.
+        </p>
+      </section>
+      <section>
+        <h2>2. Create the folder</h2>
+        <pre><code>mkdir my-website
 cd my-website
-git init -b main</code></pre><p>Mkdir creates the folder. Cd moves into it. Git init starts history and names the initial branch main. Keep this terminal in my-website for the remaining steps. You will see an initialization message; its absolute path depends on your computer.</p></section><section><h2>3. Identify your commits</h2><p>Replace these example values with your chosen author name and email. Run inside the new repository. These settings apply only to this project because --global is omitted.</p><pre><code>git config user.name "Your Name"
-git config user.email "you@example.com"</code></pre><p class="note">This is commit authorship, not an online login. Author email becomes part of commit history. If you will publish, choose an address you are comfortable including or a host-provided no-reply address.</p></section><section><h2>4. Save a small file</h2><p>Open my-website in your editor. Create index.html, paste the document below, and save. Creating the file in the editor keeps this step the same across terminal types.</p><pre><code>&lt;!DOCTYPE html&gt;
+git init -b main</code></pre>
+        <p>
+          Mkdir creates the folder. Cd moves into it. Git init starts history
+          and names the initial branch main. Keep this terminal in my-website
+          for the remaining steps. You will see an initialization message; its
+          absolute path depends on your computer.
+        </p>
+      </section>
+      <section>
+        <h2>3. Identify your commits</h2>
+        <p>
+          Replace these example values with your chosen author name and email.
+          Run inside the new repository. These settings apply only to this
+          project because --global is omitted.
+        </p>
+        <pre><code>git config user.name "Your Name"
+git config user.email "you@example.com"</code></pre>
+        <p class="note">
+          This is commit authorship, not an online login. Author email becomes
+          part of commit history. If you will publish, choose an address you are
+          comfortable including or a host-provided no-reply address.
+        </p>
+      </section>
+      <section>
+        <h2>4. Save a small file</h2>
+        <p>
+          Open my-website in your editor. Create index.html, paste the document
+          below, and save. Creating the file in the editor keeps this step the
+          same across terminal types.
+        </p>
+        <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
@@ -20,20 +120,103 @@ git config user.email "you@example.com"</code></pre><p class="note">This is comm
 &lt;body&gt;
   &lt;h1&gt;My first version&lt;/h1&gt;
 &lt;/body&gt;
-&lt;/html&gt;</code></pre></section><section><h2>5. Inspect, stage, and commit</h2><p>Run inside my-website after saving index.html. Status first shows the new file as untracked. Add selects its saved content. Commit records it locally.</p><h3>Commands</h3><pre><code>git status
+&lt;/html&gt;</code></pre>
+      </section>
+      <section>
+        <h2>5. Inspect, stage, and commit</h2>
+        <p>
+          Run inside my-website after saving index.html. Status first shows the
+          new file as untracked. Add selects its saved content. Commit records
+          it locally.
+        </p>
+        <h3>Commands</h3>
+        <pre><code>git status
 git add index.html
 git diff --staged
 git commit -m "Create first webpage"
-git status</code></pre><h3>Example output</h3><div class="output"><pre><code>[main (root-commit) a1b2c3d] Create first webpage
+git status</code></pre>
+        <h3>Example output</h3>
+        <div class="output">
+          <pre><code>[main (root-commit) a1b2c3d] Create first webpage
  1 file changed, 11 insertions(+)
  create mode 100644 index.html
 
 On branch main
-nothing to commit, working tree clean</code></pre></div><p>The short commit ID and formatting will vary. A clean working tree means no pending changes among the files Git is reporting. You have recorded a version without GitHub, GitLab, or internet access.</p></section><section><h2>6. Record a second version</h2><p>In the editor, change the heading to “My updated website” and save. Then run:</p><pre><code>git diff
+nothing to commit, working tree clean</code></pre>
+        </div>
+        <p>
+          The short commit ID and formatting will vary. A clean working tree
+          means no pending changes among the files Git is reporting. You have
+          recorded a version without GitHub, GitLab, or internet access.
+        </p>
+      </section>
+      <section>
+        <h2>6. Record a second version</h2>
+        <p>
+          In the editor, change the heading to “My updated website” and save.
+          Then run:
+        </p>
+        <pre><code>git diff
 git add index.html
 git diff --staged
 git commit -m "Update homepage heading"
-git log --oneline</code></pre><p>Your log now has two commits, newest first. Continue with Everyday Workflow to understand each step. Connect a host only when you are ready to share or keep another copy elsewhere.</p></section><section><h2>Sources and further reading</h2><ul><li><a href="https://git-scm.com/docs/git-init">Git init</a></li><li><a href="https://git-scm.com/docs/git-config">Git config</a></li><li><a href="https://git-scm.com/docs/git-add">Git add</a></li><li><a href="https://git-scm.com/docs/git-commit">Git commit</a></li></ul></section><nav aria-label="Lesson navigation"><a href="../01-version-control/index.html">Next: Version Control Explained →</a></nav><section><h2>Study questions</h2><p>Explain it in your own words, then open the answer.</p><details><summary>Did my commit go online?</summary><p>No. A commit is local. A configured remote and a push are separate steps.</p></details><details><summary>Why did I save before git add?</summary><p>Git reads saved file content from disk. Unsaved editor text is not staged.</p></details><details><summary>Do I need an account for this walkthrough?</summary><p>No. Git can initialize, inspect, and commit locally without any hosting account.</p></details><details><summary>What is main?</summary><p>The branch name chosen for this example. It is not a special online service.</p></details><details><summary>What should git log show after both commits?</summary><p>Two history entries, with the most recent first.</p></details></section>
-  </main>
-</body>
+git log --oneline</code></pre>
+        <p>
+          Your log now has two commits, newest first. Continue with Everyday
+          Workflow to understand each step. Connect a host only when you are
+          ready to share or keep another copy elsewhere.
+        </p>
+      </section>
+      <section>
+        <h2>Sources and further reading</h2>
+        <ul>
+          <li><a href="https://git-scm.com/docs/git-init">Git init</a></li>
+          <li><a href="https://git-scm.com/docs/git-config">Git config</a></li>
+          <li><a href="https://git-scm.com/docs/git-add">Git add</a></li>
+          <li><a href="https://git-scm.com/docs/git-commit">Git commit</a></li>
+        </ul>
+      </section>
+      <nav aria-label="Lesson navigation">
+        <a href="../01-version-control/index.html"
+          >Next: Version Control Explained →</a
+        >
+      </nav>
+      <section>
+        <h2>Study questions</h2>
+        <p>Explain it in your own words, then open the answer.</p>
+        <details>
+          <summary>Did my commit go online?</summary>
+          <p>
+            No. A commit is local. A configured remote and a push are separate
+            steps.
+          </p>
+        </details>
+        <details>
+          <summary>Why did I save before git add?</summary>
+          <p>
+            Git reads saved file content from disk. Unsaved editor text is not
+            staged.
+          </p>
+        </details>
+        <details>
+          <summary>Do I need an account for this walkthrough?</summary>
+          <p>
+            No. Git can initialize, inspect, and commit locally without any
+            hosting account.
+          </p>
+        </details>
+        <details>
+          <summary>What is main?</summary>
+          <p>
+            The branch name chosen for this example. It is not a special online
+            service.
+          </p>
+        </details>
+        <details>
+          <summary>What should git log show after both commits?</summary>
+          <p>Two history entries, with the most recent first.</p>
+        </details>
+      </section>
+    </main>
+  </body>
 </html>

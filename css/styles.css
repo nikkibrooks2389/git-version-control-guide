@@ -372,7 +372,16 @@ a.topic-card:hover {
   }
 }
 /* Long command names and source links should wrap on narrow screens. */
-a, code { overflow-wrap: anywhere; }
-section { margin-bottom: 28px; }
-nav[aria-label="Lesson navigation"] { margin: 24px 0; }
-.output pre { margin: 0; }
+a,
+code {
+  overflow-wrap: anywhere;
+}
+section {
+  margin-bottom: 28px;
+}
+nav[aria-label="Lesson navigation"] {
+  margin: 24px 0;
+}
+.output pre {
+  margin: 0;
+}

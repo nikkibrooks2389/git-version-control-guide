@@ -1,28 +1,259 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fixing Mistakes | Git &amp; Version Control Guide</title>
-  <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-  <main class="lesson">
-<a class="back-link" href="../index.html">← All topics</a><header><p class="eyebrow">GIT &amp; VERSION CONTROL · REFERENCE</p><h1>Fixing Mistakes</h1><p>Choose a recovery operation based on whether your change is unstaged, staged, committed, or shared.</p></header><section><h2>At a glance</h2><div class="table-scroll"><table><thead><tr><th scope="col">Term or command</th><th scope="col">What it means</th><th scope="col">When to use it</th></tr></thead><tbody><tr><th scope="row">git restore --staged FILE</th><td>Removes the file’s staged change while preserving working-file content.</td><td>Use after staging the wrong file; needs an existing commit for this default form.</td></tr><tr><th scope="row">git restore FILE</th><td>Replaces a tracked working file with its staged version by default.</td><td>Use only when you intend to discard that file’s unstaged edits.</td></tr><tr><th scope="row">git revert COMMIT</th><td>Creates a new commit reversing an earlier commit’s changes.</td><td>Prefer for undoing a simple commit already shared with others.</td></tr><tr><th scope="row">git stash push -u</th><td>Temporarily stores tracked changes and untracked files.</td><td>Pause unfinished work; ignored files are not included by -u.</td></tr><tr><th scope="row">git merge --abort</th><td>Attempts to cancel an in-progress merge.</td><td>Use when you want to return from a conflicted merge to the pre-merge state.</td></tr><tr><th scope="row">Conflict markers</th><td>Text showing competing versions Git could not combine.</td><td>Edit deliberately, test the result, then stage and complete the operation.</td></tr></tbody></table></div></section><p class="note">Commands are examples, not an interactive terminal. Run them in your own learning repository after checking the prerequisites. Output, paths, commit IDs, and wording can vary. Host-specific instructions are labeled.</p><section><h2>Unstage without losing the edit</h2><p>Prerequisite: this repository has at least one commit. You accidentally staged index.html.</p><h3>Commands</h3><pre><code>git restore --staged index.html
-git status --short</code></pre><h3>Example output</h3><div class="output"><pre><code> M index.html</code></pre></div><p>The edit remains in the working tree and is no longer selected for the next commit. This is different from discarding the edit.</p></section><section><h2>Discard an unstaged edit deliberately</h2><p class="note">The next command discards unstaged edits to this tracked file. Review git diff first and copy out anything you want to keep. Git generally cannot recover content it never recorded.</p><pre><code>git diff -- index.html
-git restore index.html</code></pre><p>By default, restore copies from the staging area. If the file was staged earlier, it returns to that staged content, not necessarily the last commit. It does not delete a separate untracked file.</p></section><section><h2>Undo a simple shared commit</h2><p>Prerequisite: clean working tree, and HEAD is the ordinary non-merge commit you intend to reverse.</p><h3>Commands</h3><pre><code>git revert --no-edit HEAD
-git log --oneline -2</code></pre><h3>Example output</h3><div class="output"><pre><code>e5f6a7b Revert "Clarify homepage heading"
-d4e5f6a Clarify homepage heading</code></pre></div><p>Revert adds a new history entry instead of deleting the old entry. Inspect and test it before pushing. Reverting older changes can conflict; merge commits require additional understanding.</p></section><section><h2>Pause unfinished work</h2><pre><code>git stash push -u -m "Pause heading edit"
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixing Mistakes | Git &amp; Version Control Guide</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <main class="lesson">
+      <a class="back-link" href="../index.html">← All topics</a>
+      <header>
+        <p class="eyebrow">GIT &amp; VERSION CONTROL · REFERENCE</p>
+        <h1>Fixing Mistakes</h1>
+        <p>
+          Choose a recovery operation based on whether your change is unstaged,
+          staged, committed, or shared.
+        </p>
+      </header>
+      <section>
+        <h2>At a glance</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Term or command</th>
+                <th scope="col">What it means</th>
+                <th scope="col">When to use it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">git restore --staged FILE</th>
+                <td>
+                  Removes the file’s staged change while preserving working-file
+                  content.
+                </td>
+                <td>
+                  Use after staging the wrong file; needs an existing commit for
+                  this default form.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">git restore FILE</th>
+                <td>
+                  Replaces a tracked working file with its staged version by
+                  default.
+                </td>
+                <td>
+                  Use only when you intend to discard that file’s unstaged
+                  edits.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">git revert COMMIT</th>
+                <td>
+                  Creates a new commit reversing an earlier commit’s changes.
+                </td>
+                <td>
+                  Prefer for undoing a simple commit already shared with others.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">git stash push -u</th>
+                <td>Temporarily stores tracked changes and untracked files.</td>
+                <td>
+                  Pause unfinished work; ignored files are not included by -u.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">git merge --abort</th>
+                <td>Attempts to cancel an in-progress merge.</td>
+                <td>
+                  Use when you want to return from a conflicted merge to the
+                  pre-merge state.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Conflict markers</th>
+                <td>Text showing competing versions Git could not combine.</td>
+                <td>
+                  Edit deliberately, test the result, then stage and complete
+                  the operation.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <p class="note">
+        Commands are examples, not an interactive terminal. Run them in your own
+        learning repository after checking the prerequisites. Output, paths,
+        commit IDs, and wording can vary. Host-specific instructions are
+        labeled.
+      </p>
+      <section>
+        <h2>Unstage without losing the edit</h2>
+        <p>
+          Prerequisite: this repository has at least one commit. You
+          accidentally staged index.html.
+        </p>
+        <h3>Commands</h3>
+        <pre><code>git restore --staged index.html
+git status --short</code></pre>
+        <h3>Example output</h3>
+        <div class="output">
+          <pre><code> M index.html</code></pre>
+        </div>
+        <p>
+          The edit remains in the working tree and is no longer selected for the
+          next commit. This is different from discarding the edit.
+        </p>
+      </section>
+      <section>
+        <h2>Discard an unstaged edit deliberately</h2>
+        <p class="note">
+          The next command discards unstaged edits to this tracked file. Review
+          git diff first and copy out anything you want to keep. Git generally
+          cannot recover content it never recorded.
+        </p>
+        <pre><code>git diff -- index.html
+git restore index.html</code></pre>
+        <p>
+          By default, restore copies from the staging area. If the file was
+          staged earlier, it returns to that staged content, not necessarily the
+          last commit. It does not delete a separate untracked file.
+        </p>
+      </section>
+      <section>
+        <h2>Undo a simple shared commit</h2>
+        <p>
+          Prerequisite: clean working tree, and HEAD is the ordinary non-merge
+          commit you intend to reverse.
+        </p>
+        <h3>Commands</h3>
+        <pre><code>git revert --no-edit HEAD
+git log --oneline -2</code></pre>
+        <h3>Example output</h3>
+        <div class="output">
+          <pre><code>e5f6a7b Revert "Clarify homepage heading"
+d4e5f6a Clarify homepage heading</code></pre>
+        </div>
+        <p>
+          Revert adds a new history entry instead of deleting the old entry.
+          Inspect and test it before pushing. Reverting older changes can
+          conflict; merge commits require additional understanding.
+        </p>
+      </section>
+      <section>
+        <h2>Pause unfinished work</h2>
+        <pre><code>git stash push -u -m "Pause heading edit"
 git stash list
-git stash apply</code></pre><p>Use these inside the repository when you need a clean working tree temporarily. Apply restores the latest stash’s changes but retains the stash entry. Review status and resolve any conflicts. A stash lives locally; an ordinary push does not share it. -u includes untracked files but not ignored ones.</p></section><section><h2>Resolve a merge conflict step by step</h2><p>Assume main and a feature branch both edited the same heading. You merge and Git reports a conflict. Use status to identify the affected files, then open them in your editor. A simplified conflicted file might contain:</p><pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+git stash apply</code></pre>
+        <p>
+          Use these inside the repository when you need a clean working tree
+          temporarily. Apply restores the latest stash’s changes but retains the
+          stash entry. Review status and resolve any conflicts. A stash lives
+          locally; an ordinary push does not share it. -u includes untracked
+          files but not ignored ones.
+        </p>
+      </section>
+      <section>
+        <h2>Resolve a merge conflict step by step</h2>
+        <p>
+          Assume main and a feature branch both edited the same heading. You
+          merge and Git reports a conflict. Use status to identify the affected
+          files, then open them in your editor. A simplified conflicted file
+          might contain:
+        </p>
+        <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 &lt;h1&gt;Trail Notes&lt;/h1&gt;
 =======
 &lt;h1&gt;Walking Notes&lt;/h1&gt;
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; update-heading</code></pre><p>The upper side is the current branch; the lower side is the incoming branch in this merge. Decide the final text, remove all marker lines, and save. You may keep one side or write a combined result. Then:</p><pre><code>git status
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; update-heading</code></pre>
+        <p>
+          The upper side is the current branch; the lower side is the incoming
+          branch in this merge. Decide the final text, remove all marker lines,
+          and save. You may keep one side or write a combined result. Then:
+        </p>
+        <pre><code>git status
 git diff
 git add index.html
 git diff --staged
-git commit -m "Merge heading updates"</code></pre><p>Test before committing the resolved result. To cancel an in-progress merge, use git merge --abort instead. Start merges with a clean working tree: unrelated edits made before or during a merge can complicate abort recovery.</p><p class="note">If a pull or push is rejected, inspect the message and branch history. Force-pushing or a hard reset is not a routine synchronization step.</p></section><section><h2>Sources and further reading</h2><ul><li><a href="https://git-scm.com/docs/git-restore">Restore files and staging</a></li><li><a href="https://git-scm.com/docs/git-revert">Revert commits</a></li><li><a href="https://git-scm.com/docs/git-stash">Stash changes</a></li><li><a href="https://git-scm.com/docs/git-merge">Merge conflicts and abort</a></li></ul></section><nav aria-label="Lesson navigation"><a href="../08-collaboration/index.html">← Reviews and Collaboration</a> · <a href="../10-publishing/index.html">Next: Publishing and Automation →</a></nav><section><h2>Study questions</h2><p>Explain it in your own words, then open the answer.</p><details><summary>Does unstage erase my file changes?</summary><p>No. Restore --staged preserves working-tree edits.</p></details><details><summary>Can restore discard work Git never recorded?</summary><p>Yes. Restoring a tracked file can overwrite unstaged edits, which Git may not be able to recover.</p></details><details><summary>Why use revert for shared history?</summary><p>It records a new reversing commit rather than rewriting the published sequence.</p></details><details><summary>Is a stash uploaded by an ordinary push?</summary><p>No. It is local temporary storage.</p></details><details><summary>What should I do with conflict markers?</summary><p>Read both versions, choose the intended final content, remove markers, save, test, stage, and complete the merge.</p></details></section>
-  </main>
-</body>
+git commit -m "Merge heading updates"</code></pre>
+        <p>
+          Test before committing the resolved result. To cancel an in-progress
+          merge, use git merge --abort instead. Start merges with a clean
+          working tree: unrelated edits made before or during a merge can
+          complicate abort recovery.
+        </p>
+        <p class="note">
+          If a pull or push is rejected, inspect the message and branch history.
+          Force-pushing or a hard reset is not a routine synchronization step.
+        </p>
+      </section>
+      <section>
+        <h2>Sources and further reading</h2>
+        <ul>
+          <li>
+            <a href="https://git-scm.com/docs/git-restore"
+              >Restore files and staging</a
+            >
+          </li>
+          <li>
+            <a href="https://git-scm.com/docs/git-revert">Revert commits</a>
+          </li>
+          <li>
+            <a href="https://git-scm.com/docs/git-stash">Stash changes</a>
+          </li>
+          <li>
+            <a href="https://git-scm.com/docs/git-merge"
+              >Merge conflicts and abort</a
+            >
+          </li>
+        </ul>
+      </section>
+      <nav aria-label="Lesson navigation">
+        <a href="../08-collaboration/index.html">← Reviews and Collaboration</a>
+        ·
+        <a href="../10-publishing/index.html"
+          >Next: Publishing and Automation →</a
+        >
+      </nav>
+      <section>
+        <h2>Study questions</h2>
+        <p>Explain it in your own words, then open the answer.</p>
+        <details>
+          <summary>Does unstage erase my file changes?</summary>
+          <p>No. Restore --staged preserves working-tree edits.</p>
+        </details>
+        <details>
+          <summary>Can restore discard work Git never recorded?</summary>
+          <p>
+            Yes. Restoring a tracked file can overwrite unstaged edits, which
+            Git may not be able to recover.
+          </p>
+        </details>
+        <details>
+          <summary>Why use revert for shared history?</summary>
+          <p>
+            It records a new reversing commit rather than rewriting the
+            published sequence.
+          </p>
+        </details>
+        <details>
+          <summary>Is a stash uploaded by an ordinary push?</summary>
+          <p>No. It is local temporary storage.</p>
+        </details>
+        <details>
+          <summary>What should I do with conflict markers?</summary>
+          <p>
+            Read both versions, choose the intended final content, remove
+            markers, save, test, stage, and complete the merge.
+          </p>
+        </details>
+      </section>
+    </main>
+  </body>
 </html>

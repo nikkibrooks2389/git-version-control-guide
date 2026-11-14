@@ -1,29 +1,199 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Everyday Workflow | Git &amp; Version Control Guide</title>
-  <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-  <main class="lesson">
-<a class="back-link" href="../index.html">← All topics</a><header><p class="eyebrow">GIT &amp; VERSION CONTROL · REFERENCE</p><h1>Your Everyday Workflow</h1><p>Understand exactly what gets included in a commit, using a small change to index.html.</p></header><section><h2>At a glance</h2><div class="table-scroll"><table><thead><tr><th scope="col">Term or command</th><th scope="col">What it means</th><th scope="col">When to use it</th></tr></thead><tbody><tr><th scope="row">git status</th><td>Shows branch and file states.</td><td>Use before and after recording changes.</td></tr><tr><th scope="row">git diff</th><td>Shows unstaged changes in tracked files.</td><td>Read what changed since the staged version.</td></tr><tr><th scope="row">git add index.html</th><td>Stages the file’s current saved content.</td><td>Select a specific file instead of accidentally including unrelated files.</td></tr><tr><th scope="row">git diff --staged</th><td>Compares staged content with the current commit.</td><td>Review what your next commit will record.</td></tr><tr><th scope="row">git commit -m "message"</th><td>Records staged changes with a message.</td><td>Commit one coherent change after checking it.</td></tr></tbody></table></div></section><p class="note">Commands are examples, not an interactive terminal. Run them in your own learning repository after checking the prerequisites. Output, paths, commit IDs, and wording can vary. Host-specific instructions are labeled.</p><section><h2>1. Review the saved edit</h2><p>Prerequisite: finish Start Here, so index.html is already tracked. Change the heading in your editor and save. Run inside my-website. Output below is an excerpt.</p><h3>Commands</h3><pre><code>git status --short
-git diff</code></pre><h3>Example output</h3><div class="output"><pre><code> M index.html
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Everyday Workflow | Git &amp; Version Control Guide</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <main class="lesson">
+      <a class="back-link" href="../index.html">← All topics</a>
+      <header>
+        <p class="eyebrow">GIT &amp; VERSION CONTROL · REFERENCE</p>
+        <h1>Your Everyday Workflow</h1>
+        <p>
+          Understand exactly what gets included in a commit, using a small
+          change to index.html.
+        </p>
+      </header>
+      <section>
+        <h2>At a glance</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Term or command</th>
+                <th scope="col">What it means</th>
+                <th scope="col">When to use it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">git status</th>
+                <td>Shows branch and file states.</td>
+                <td>Use before and after recording changes.</td>
+              </tr>
+              <tr>
+                <th scope="row">git diff</th>
+                <td>Shows unstaged changes in tracked files.</td>
+                <td>Read what changed since the staged version.</td>
+              </tr>
+              <tr>
+                <th scope="row">git add index.html</th>
+                <td>Stages the file’s current saved content.</td>
+                <td>
+                  Select a specific file instead of accidentally including
+                  unrelated files.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">git diff --staged</th>
+                <td>Compares staged content with the current commit.</td>
+                <td>Review what your next commit will record.</td>
+              </tr>
+              <tr>
+                <th scope="row">git commit -m "message"</th>
+                <td>Records staged changes with a message.</td>
+                <td>Commit one coherent change after checking it.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <p class="note">
+        Commands are examples, not an interactive terminal. Run them in your own
+        learning repository after checking the prerequisites. Output, paths,
+        commit IDs, and wording can vary. Host-specific instructions are
+        labeled.
+      </p>
+      <section>
+        <h2>1. Review the saved edit</h2>
+        <p>
+          Prerequisite: finish Start Here, so index.html is already tracked.
+          Change the heading in your editor and save. Run inside my-website.
+          Output below is an excerpt.
+        </p>
+        <h3>Commands</h3>
+        <pre><code>git status --short
+git diff</code></pre>
+        <h3>Example output</h3>
+        <div class="output">
+          <pre><code> M index.html
 
 -  &lt;h1&gt;My first version&lt;/h1&gt;
-+  &lt;h1&gt;My updated website&lt;/h1&gt;</code></pre></div><p>In short status, the first column describes the index and the second describes the working tree. Here the second-column M means an unstaged modification. In a diff, minus means the old line and plus means its replacement.</p></section><section><h2>2. Select and inspect the next snapshot</h2><p>Stage only index.html, then inspect the selection.</p><h3>Commands</h3><pre><code>git add index.html
++  &lt;h1&gt;My updated website&lt;/h1&gt;</code></pre>
+        </div>
+        <p>
+          In short status, the first column describes the index and the second
+          describes the working tree. Here the second-column M means an unstaged
+          modification. In a diff, minus means the old line and plus means its
+          replacement.
+        </p>
+      </section>
+      <section>
+        <h2>2. Select and inspect the next snapshot</h2>
+        <p>Stage only index.html, then inspect the selection.</p>
+        <h3>Commands</h3>
+        <pre><code>git add index.html
 git status --short
-git diff --staged</code></pre><h3>Example output</h3><div class="output"><pre><code>M  index.html
+git diff --staged</code></pre>
+        <h3>Example output</h3>
+        <div class="output">
+          <pre><code>M  index.html
 
 -  &lt;h1&gt;My first version&lt;/h1&gt;
-+  &lt;h1&gt;My updated website&lt;/h1&gt;</code></pre></div><p>The M has moved to the index column. Add does not upload the file. If you edit again afterward, add again to include those later edits in this commit.</p></section><section><h2>3. Record the change</h2><p>The staged diff should contain only the update you intend. Test the webpage before committing.</p><h3>Commands</h3><pre><code>git commit -m "Update homepage heading"
-git status</code></pre><h3>Example output</h3><div class="output"><pre><code>[main b2c3d4e] Update homepage heading
++  &lt;h1&gt;My updated website&lt;/h1&gt;</code></pre>
+        </div>
+        <p>
+          The M has moved to the index column. Add does not upload the file. If
+          you edit again afterward, add again to include those later edits in
+          this commit.
+        </p>
+      </section>
+      <section>
+        <h2>3. Record the change</h2>
+        <p>
+          The staged diff should contain only the update you intend. Test the
+          webpage before committing.
+        </p>
+        <h3>Commands</h3>
+        <pre><code>git commit -m "Update homepage heading"
+git status</code></pre>
+        <h3>Example output</h3>
+        <div class="output">
+          <pre><code>[main b2c3d4e] Update homepage heading
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 On branch main
-nothing to commit, working tree clean</code></pre></div><p>Your commit ID will differ. A useful message describes the result. “Update homepage heading” tells a future reader more than “stuff” or “changes.” This commit remains local until pushed.</p></section><section><h2>What if I changed several files?</h2><p>Stage related files by naming them, review the staged diff, and commit them together when they form one complete change. Use a separate commit for an unrelated correction. Plain git diff does not display a new untracked file’s content; stage it, then use git diff --staged.</p><pre><code>git add index.html css/styles.css
-git diff --staged</code></pre><p class="note">A commit normally records what is staged. A clean status does not prove the website works; it only reports that Git has no relevant pending file changes.</p></section><section><h2>Sources and further reading</h2><ul><li><a href="https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository">Pro Git: staging and committing</a></li><li><a href="https://git-scm.com/docs/git-diff">Git diff</a></li><li><a href="https://git-scm.com/docs/git-status">Git status</a></li></ul></section><nav aria-label="Lesson navigation"><a href="../03-repositories/index.html">← Repositories and Files</a> · <a href="../05-history/index.html">Next: Understanding History →</a></nav><section><h2>Study questions</h2><p>Explain it in your own words, then open the answer.</p><details><summary>Does git add send changes online?</summary><p>No. It selects saved content in the local staging area.</p></details><details><summary>What if I edit a file after staging it?</summary><p>The staging area keeps the earlier selected content until you add the updated file again.</p></details><details><summary>How do I review the next commit?</summary><p>Use git diff --staged before committing.</p></details><details><summary>Does git diff show a new untracked file?</summary><p>Not normally. Add the file, then inspect its staged diff.</p></details><details><summary>Does clean status mean my code has no bugs?</summary><p>No. It describes Git’s file state, not software correctness.</p></details></section>
-  </main>
-</body>
+nothing to commit, working tree clean</code></pre>
+        </div>
+        <p>
+          Your commit ID will differ. A useful message describes the result.
+          “Update homepage heading” tells a future reader more than “stuff” or
+          “changes.” This commit remains local until pushed.
+        </p>
+      </section>
+      <section>
+        <h2>What if I changed several files?</h2>
+        <p>
+          Stage related files by naming them, review the staged diff, and commit
+          them together when they form one complete change. Use a separate
+          commit for an unrelated correction. Plain git diff does not display a
+          new untracked file’s content; stage it, then use git diff --staged.
+        </p>
+        <pre><code>git add index.html css/styles.css
+git diff --staged</code></pre>
+        <p class="note">
+          A commit normally records what is staged. A clean status does not
+          prove the website works; it only reports that Git has no relevant
+          pending file changes.
+        </p>
+      </section>
+      <section>
+        <h2>Sources and further reading</h2>
+        <ul>
+          <li>
+            <a
+              href="https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository"
+              >Pro Git: staging and committing</a
+            >
+          </li>
+          <li><a href="https://git-scm.com/docs/git-diff">Git diff</a></li>
+          <li><a href="https://git-scm.com/docs/git-status">Git status</a></li>
+        </ul>
+      </section>
+      <nav aria-label="Lesson navigation">
+        <a href="../03-repositories/index.html">← Repositories and Files</a> ·
+        <a href="../05-history/index.html">Next: Understanding History →</a>
+      </nav>
+      <section>
+        <h2>Study questions</h2>
+        <p>Explain it in your own words, then open the answer.</p>
+        <details>
+          <summary>Does git add send changes online?</summary>
+          <p>No. It selects saved content in the local staging area.</p>
+        </details>
+        <details>
+          <summary>What if I edit a file after staging it?</summary>
+          <p>
+            The staging area keeps the earlier selected content until you add
+            the updated file again.
+          </p>
+        </details>
+        <details>
+          <summary>How do I review the next commit?</summary>
+          <p>Use git diff --staged before committing.</p>
+        </details>
+        <details>
+          <summary>Does git diff show a new untracked file?</summary>
+          <p>Not normally. Add the file, then inspect its staged diff.</p>
+        </details>
+        <details>
+          <summary>Does clean status mean my code has no bugs?</summary>
+          <p>No. It describes Git’s file state, not software correctness.</p>
+        </details>
+      </section>
+    </main>
+  </body>
 </html>

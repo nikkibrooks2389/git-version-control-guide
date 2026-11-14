@@ -1,25 +1,217 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Branches and Merging | Git &amp; Version Control Guide</title>
-  <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-  <main class="lesson">
-<a class="back-link" href="../index.html">← All topics</a><header><p class="eyebrow">GIT &amp; VERSION CONTROL · REFERENCE</p><h1>Branches and Merging</h1><p>Develop one change separately, then combine its history with the main line of work.</p></header><section><h2>At a glance</h2><div class="table-scroll"><table><thead><tr><th scope="col">Term or command</th><th scope="col">What it means</th><th scope="col">When to use it</th></tr></thead><tbody><tr><th scope="row">Branch</th><td>A movable name pointing to a line of commits.</td><td>Keep an in-progress change separate from another line of work.</td></tr><tr><th scope="row">git switch -c NAME</th><td>Creates a branch and switches to it.</td><td>Begin a focused change from the current commit.</td></tr><tr><th scope="row">git switch main</th><td>Checks out the main branch.</td><td>Return after committing or otherwise preserving your current work.</td></tr><tr><th scope="row">git branch</th><td>Lists local branches, marking the current one.</td><td>Check where your next commit will go.</td></tr><tr><th scope="row">git merge NAME</th><td>Integrates the named branch into the current branch.</td><td>Combine reviewed work locally.</td></tr><tr><th scope="row">Fast-forward</th><td>Advances a branch pointer when histories have not diverged.</td><td>A merge may finish this way without creating a merge commit.</td></tr></tbody></table></div></section><p class="note">Commands are examples, not an interactive terminal. Run them in your own learning repository after checking the prerequisites. Output, paths, commit IDs, and wording can vary. Host-specific instructions are labeled.</p><section><h2>What a branch changes</h2><p>A branch is not a separate project folder. In one working tree, switching branches updates the tracked files to the selected version when Git can do so safely. Commit or stash unfinished work first if switching might overwrite or mix it.</p><pre><code>A──B             main
-    └──C         update-heading</code></pre><p>Both branches share A and B. C belongs to the new line of work until it is integrated.</p></section><section><h2>Create a branch for a heading update</h2><p>Prerequisite: your local project has commits, main exists, and status is clean. Run inside that project.</p><h3>Commands</h3><pre><code>git status
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Branches and Merging | Git &amp; Version Control Guide</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <main class="lesson">
+      <a class="back-link" href="../index.html">← All topics</a>
+      <header>
+        <p class="eyebrow">GIT &amp; VERSION CONTROL · REFERENCE</p>
+        <h1>Branches and Merging</h1>
+        <p>
+          Develop one change separately, then combine its history with the main
+          line of work.
+        </p>
+      </header>
+      <section>
+        <h2>At a glance</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Term or command</th>
+                <th scope="col">What it means</th>
+                <th scope="col">When to use it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Branch</th>
+                <td>A movable name pointing to a line of commits.</td>
+                <td>
+                  Keep an in-progress change separate from another line of work.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">git switch -c NAME</th>
+                <td>Creates a branch and switches to it.</td>
+                <td>Begin a focused change from the current commit.</td>
+              </tr>
+              <tr>
+                <th scope="row">git switch main</th>
+                <td>Checks out the main branch.</td>
+                <td>
+                  Return after committing or otherwise preserving your current
+                  work.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">git branch</th>
+                <td>Lists local branches, marking the current one.</td>
+                <td>Check where your next commit will go.</td>
+              </tr>
+              <tr>
+                <th scope="row">git merge NAME</th>
+                <td>Integrates the named branch into the current branch.</td>
+                <td>Combine reviewed work locally.</td>
+              </tr>
+              <tr>
+                <th scope="row">Fast-forward</th>
+                <td>
+                  Advances a branch pointer when histories have not diverged.
+                </td>
+                <td>
+                  A merge may finish this way without creating a merge commit.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <p class="note">
+        Commands are examples, not an interactive terminal. Run them in your own
+        learning repository after checking the prerequisites. Output, paths,
+        commit IDs, and wording can vary. Host-specific instructions are
+        labeled.
+      </p>
+      <section>
+        <h2>What a branch changes</h2>
+        <p>
+          A branch is not a separate project folder. In one working tree,
+          switching branches updates the tracked files to the selected version
+          when Git can do so safely. Commit or stash unfinished work first if
+          switching might overwrite or mix it.
+        </p>
+        <pre><code>A──B             main
+    └──C         update-heading</code></pre>
+        <p>
+          Both branches share A and B. C belongs to the new line of work until
+          it is integrated.
+        </p>
+      </section>
+      <section>
+        <h2>Create a branch for a heading update</h2>
+        <p>
+          Prerequisite: your local project has commits, main exists, and status
+          is clean. Run inside that project.
+        </p>
+        <h3>Commands</h3>
+        <pre><code>git status
 git switch -c update-heading
-git branch</code></pre><h3>Example output</h3><div class="output"><pre><code>Switched to a new branch 'update-heading'
+git branch</code></pre>
+        <h3>Example output</h3>
+        <div class="output">
+          <pre><code>Switched to a new branch 'update-heading'
   main
-* update-heading</code></pre></div><p>The asterisk marks your current branch. Edit and save index.html in your editor next. New commits will advance update-heading, while main stays where it was.</p></section><section><h2>Record the change on its branch</h2><pre><code>git diff
+* update-heading</code></pre>
+        </div>
+        <p>
+          The asterisk marks your current branch. Edit and save index.html in
+          your editor next. New commits will advance update-heading, while main
+          stays where it was.
+        </p>
+      </section>
+      <section>
+        <h2>Record the change on its branch</h2>
+        <pre><code>git diff
 git add index.html
 git diff --staged
-git commit -m "Clarify homepage heading"</code></pre><p>The staging and commit workflow is unchanged. Branches organize history; they do not replace status, review, or testing.</p></section><section><h2>Merge into main locally</h2><p>Assume the branch’s edit is committed, status is clean, and main has no additional commits. This is the local-only route; a team may instead require a pull request.</p><h3>Commands</h3><pre><code>git switch main
+git commit -m "Clarify homepage heading"</code></pre>
+        <p>
+          The staging and commit workflow is unchanged. Branches organize
+          history; they do not replace status, review, or testing.
+        </p>
+      </section>
+      <section>
+        <h2>Merge into main locally</h2>
+        <p>
+          Assume the branch’s edit is committed, status is clean, and main has
+          no additional commits. This is the local-only route; a team may
+          instead require a pull request.
+        </p>
+        <h3>Commands</h3>
+        <pre><code>git switch main
 git merge update-heading
-git log --oneline --graph --all</code></pre><h3>Example output</h3><div class="output"><pre><code>Updating b2c3d4e..d4e5f6a
-Fast-forward</code></pre></div><p>Merge integrates into the branch you have currently checked out: here that is main. If both branches advanced, Git may create a merge commit or ask you to resolve a conflict. A local merge does not update a remote until pushed.</p></section><section><h2>When you use a hosted review instead</h2><p>Push the feature branch and open a review request on the host. GitHub calls it a pull request; GitLab calls it a merge request. After the host merges it, switch to main locally and pull the result. Avoid mixing this route with an independent local merge unless you understand the combined history.</p></section><section><h2>Sources and further reading</h2><ul><li><a href="https://git-scm.com/docs/git-switch">Switching branches</a></li><li><a href="https://git-scm.com/docs/git-branch">Managing branches</a></li><li><a href="https://git-scm.com/docs/git-merge">Merging branches</a></li></ul></section><nav aria-label="Lesson navigation"><a href="../06-hosting-remotes/index.html">← Storage, Hosting, and Remotes</a> · <a href="../08-collaboration/index.html">Next: Reviews and Collaboration →</a></nav><section><h2>Study questions</h2><p>Explain it in your own words, then open the answer.</p><details><summary>Does a branch create a new project folder?</summary><p>No. It is a named reference within repository history.</p></details><details><summary>Which branch receives git merge update-heading?</summary><p>The currently checked-out branch.</p></details><details><summary>Does switching branches upload anything?</summary><p>No. Switching is local.</p></details><details><summary>When can a merge fast-forward?</summary><p>When the current branch can advance along the other branch’s history without divergent commits.</p></details><details><summary>Should I choose a local merge and a hosted review for the same change blindly?</summary><p>No. Follow the project’s workflow and synchronize the result.</p></details></section>
-  </main>
-</body>
+git log --oneline --graph --all</code></pre>
+        <h3>Example output</h3>
+        <div class="output">
+          <pre><code>Updating b2c3d4e..d4e5f6a
+Fast-forward</code></pre>
+        </div>
+        <p>
+          Merge integrates into the branch you have currently checked out: here
+          that is main. If both branches advanced, Git may create a merge commit
+          or ask you to resolve a conflict. A local merge does not update a
+          remote until pushed.
+        </p>
+      </section>
+      <section>
+        <h2>When you use a hosted review instead</h2>
+        <p>
+          Push the feature branch and open a review request on the host. GitHub
+          calls it a pull request; GitLab calls it a merge request. After the
+          host merges it, switch to main locally and pull the result. Avoid
+          mixing this route with an independent local merge unless you
+          understand the combined history.
+        </p>
+      </section>
+      <section>
+        <h2>Sources and further reading</h2>
+        <ul>
+          <li>
+            <a href="https://git-scm.com/docs/git-switch">Switching branches</a>
+          </li>
+          <li>
+            <a href="https://git-scm.com/docs/git-branch">Managing branches</a>
+          </li>
+          <li>
+            <a href="https://git-scm.com/docs/git-merge">Merging branches</a>
+          </li>
+        </ul>
+      </section>
+      <nav aria-label="Lesson navigation">
+        <a href="../06-hosting-remotes/index.html"
+          >← Storage, Hosting, and Remotes</a
+        >
+        ·
+        <a href="../08-collaboration/index.html"
+          >Next: Reviews and Collaboration →</a
+        >
+      </nav>
+      <section>
+        <h2>Study questions</h2>
+        <p>Explain it in your own words, then open the answer.</p>
+        <details>
+          <summary>Does a branch create a new project folder?</summary>
+          <p>No. It is a named reference within repository history.</p>
+        </details>
+        <details>
+          <summary>Which branch receives git merge update-heading?</summary>
+          <p>The currently checked-out branch.</p>
+        </details>
+        <details>
+          <summary>Does switching branches upload anything?</summary>
+          <p>No. Switching is local.</p>
+        </details>
+        <details>
+          <summary>When can a merge fast-forward?</summary>
+          <p>
+            When the current branch can advance along the other branch’s history
+            without divergent commits.
+          </p>
+        </details>
+        <details>
+          <summary>
+            Should I choose a local merge and a hosted review for the same
+            change blindly?
+          </summary>
+          <p>No. Follow the project’s workflow and synchronize the result.</p>
+        </details>
+      </section>
+    </main>
+  </body>
 </html>

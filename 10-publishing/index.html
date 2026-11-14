@@ -1,14 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publishing and Automation | Git &amp; Version Control Guide</title>
-  <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-  <main class="lesson">
-<a class="back-link" href="../index.html">← All topics</a><header><p class="eyebrow">GIT &amp; VERSION CONTROL · REFERENCE</p><h1>Publishing and Automation</h1><p>A repository stores source history. A deployment serves a selected version of the website to visitors.</p></header><section><h2>At a glance</h2><div class="table-scroll"><table><thead><tr><th scope="col">Term or command</th><th scope="col">What it means</th><th scope="col">When to use it</th></tr></thead><tbody><tr><th scope="row">Repository hosting</th><td>Stores Git history and platform records.</td><td>Use for source sharing, review, and collaboration.</td></tr><tr><th scope="row">Website hosting</th><td>Serves browser-accessible website files.</td><td>Use when visitors need a public or controlled-access URL.</td></tr><tr><th scope="row">Workflow / pipeline</th><td>Configured automated steps triggered by an event.</td><td>Run checks or deploy a site when a change is pushed or merged.</td></tr><tr><th scope="row">CI</th><td>Continuous integration: automated checks on changes.</td><td>Detect problems before or during integration.</td></tr><tr><th scope="row">Deployment</th><td>Releases a chosen version to a hosting environment.</td><td>Make the site update visible to visitors.</td></tr><tr><th scope="row">Artifact</th><td>Output packaged by a workflow.</td><td>Deploy the files produced or collected for the site.</td></tr></tbody></table></div></section><p class="note">Commands are examples, not an interactive terminal. Run them in your own learning repository after checking the prerequisites. Output, paths, commit IDs, and wording can vary. Host-specific instructions are labeled.</p><section><h2>Source code and a live site are different</h2><pre><code>Edit → Commit → Push to repository
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publishing and Automation | Git &amp; Version Control Guide</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <main class="lesson">
+      <a class="back-link" href="../index.html">← All topics</a>
+      <header>
+        <p class="eyebrow">GIT &amp; VERSION CONTROL · REFERENCE</p>
+        <h1>Publishing and Automation</h1>
+        <p>
+          A repository stores source history. A deployment serves a selected
+          version of the website to visitors.
+        </p>
+      </header>
+      <section>
+        <h2>At a glance</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Term or command</th>
+                <th scope="col">What it means</th>
+                <th scope="col">When to use it</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Repository hosting</th>
+                <td>Stores Git history and platform records.</td>
+                <td>Use for source sharing, review, and collaboration.</td>
+              </tr>
+              <tr>
+                <th scope="row">Website hosting</th>
+                <td>Serves browser-accessible website files.</td>
+                <td>
+                  Use when visitors need a public or controlled-access URL.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Workflow / pipeline</th>
+                <td>Configured automated steps triggered by an event.</td>
+                <td>
+                  Run checks or deploy a site when a change is pushed or merged.
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">CI</th>
+                <td>Continuous integration: automated checks on changes.</td>
+                <td>Detect problems before or during integration.</td>
+              </tr>
+              <tr>
+                <th scope="row">Deployment</th>
+                <td>Releases a chosen version to a hosting environment.</td>
+                <td>Make the site update visible to visitors.</td>
+              </tr>
+              <tr>
+                <th scope="row">Artifact</th>
+                <td>Output packaged by a workflow.</td>
+                <td>Deploy the files produced or collected for the site.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <p class="note">
+        Commands are examples, not an interactive terminal. Run them in your own
+        learning repository after checking the prerequisites. Output, paths,
+        commit IDs, and wording can vary. Host-specific instructions are
+        labeled.
+      </p>
+      <section>
+        <h2>Source code and a live site are different</h2>
+        <pre><code>Edit → Commit → Push to repository
                         ↓
                  Workflow runs
                         ↓
@@ -16,7 +83,134 @@
                         ↓
                  Deploy to hosting
                         ↓
-                 Visitor sees site</code></pre><p>A successful push means the remote accepted commits. It does not prove a website deployed. Some repositories have no deployment configured at all. A private repository also does not automatically imply a private website; verify source and site access separately.</p></section><section><h2>GitHub Pages example</h2><p>GitHub Pages serves static website files such as HTML, CSS, and images from a configured publishing source. A project site commonly has an address shaped like the example below. It is an example address, not a link to your own project.</p><pre><code>https://YOUR-NAME.github.io/my-website/</code></pre><p>In an existing GitHub repository, choose a publishing source under Settings → Pages. A simple site can publish from a selected branch and folder, or use GitHub Actions. For an Actions setup, a workflow normally checks out the source, collects the web files, uploads a Pages artifact, and deploys it with the required permissions.</p></section><section><h2>What changes on another host?</h2><p>GitLab has GitLab Pages, and Codeberg documents Codeberg Pages. Other website hosts can deploy source from supported Git services. The configuration, account limits, and access controls vary. Core Git commits still work the same; the deployment service and workflow syntax are the platform-specific pieces.</p></section><section><h2>Check the complete result</h2><p>After pushing, inspect the correct workflow run for your commit. Read a failed step’s log rather than repeatedly pushing unchanged files. After deployment, open the live URL and check the changed content, linked pages, styles, and images. A cached browser page may need a refresh.</p><p class="note">GitHub Pages is static hosting. An HTML form does not automatically acquire a server to process submissions, and a repository host does not automatically provide a backend for arbitrary code.</p></section><section><h2>Why a project path matters</h2><p>A project site can live under /my-website/ rather than the domain root. Relative links such as css/styles.css preserve that project prefix. A leading slash such as /css/styles.css starts at the domain root and can break the reference. Test the published address as well as local files.</p></section><section><h2>Sources and further reading</h2><ul><li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages">GitHub Pages overview</a></li><li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages">GitHub Pages workflows</a></li><li><a href="https://docs.gitlab.com/user/project/pages/">GitLab Pages</a></li><li><a href="https://docs.codeberg.org/codeberg-pages/">Codeberg Pages</a></li></ul></section><nav aria-label="Lesson navigation"><a href="../09-fixing-mistakes/index.html">← Fixing Mistakes</a> · <a href="../quick-reference/index.html">Next: Quick Reference and Vocabulary →</a></nav><section><h2>Study questions</h2><p>Explain it in your own words, then open the answer.</p><details><summary>Does a successful push prove deployment succeeded?</summary><p>No. Check the deployment workflow and the actual live site.</p></details><details><summary>Are repository hosting and website hosting the same service role?</summary><p>No. One stores source history; the other serves the website. A platform may offer both.</p></details><details><summary>Does Git require CI?</summary><p>No. Automated checks are additional workflow tools.</p></details><details><summary>Can a static HTML form process and store submissions by itself?</summary><p>No. That needs a suitable processing service or backend.</p></details><details><summary>Why can a leading slash break a project-site stylesheet?</summary><p>It starts at the domain root rather than beneath the project’s path.</p></details></section>
-  </main>
-</body>
+                 Visitor sees site</code></pre>
+        <p>
+          A successful push means the remote accepted commits. It does not prove
+          a website deployed. Some repositories have no deployment configured at
+          all. A private repository also does not automatically imply a private
+          website; verify source and site access separately.
+        </p>
+      </section>
+      <section>
+        <h2>GitHub Pages example</h2>
+        <p>
+          GitHub Pages serves static website files such as HTML, CSS, and images
+          from a configured publishing source. A project site commonly has an
+          address shaped like the example below. It is an example address, not a
+          link to your own project.
+        </p>
+        <pre><code>https://YOUR-NAME.github.io/my-website/</code></pre>
+        <p>
+          In an existing GitHub repository, choose a publishing source under
+          Settings → Pages. A simple site can publish from a selected branch and
+          folder, or use GitHub Actions. For an Actions setup, a workflow
+          normally checks out the source, collects the web files, uploads a
+          Pages artifact, and deploys it with the required permissions.
+        </p>
+      </section>
+      <section>
+        <h2>What changes on another host?</h2>
+        <p>
+          GitLab has GitLab Pages, and Codeberg documents Codeberg Pages. Other
+          website hosts can deploy source from supported Git services. The
+          configuration, account limits, and access controls vary. Core Git
+          commits still work the same; the deployment service and workflow
+          syntax are the platform-specific pieces.
+        </p>
+      </section>
+      <section>
+        <h2>Check the complete result</h2>
+        <p>
+          After pushing, inspect the correct workflow run for your commit. Read
+          a failed step’s log rather than repeatedly pushing unchanged files.
+          After deployment, open the live URL and check the changed content,
+          linked pages, styles, and images. A cached browser page may need a
+          refresh.
+        </p>
+        <p class="note">
+          GitHub Pages is static hosting. An HTML form does not automatically
+          acquire a server to process submissions, and a repository host does
+          not automatically provide a backend for arbitrary code.
+        </p>
+      </section>
+      <section>
+        <h2>Why a project path matters</h2>
+        <p>
+          A project site can live under /my-website/ rather than the domain
+          root. Relative links such as css/styles.css preserve that project
+          prefix. A leading slash such as /css/styles.css starts at the domain
+          root and can break the reference. Test the published address as well
+          as local files.
+        </p>
+      </section>
+      <section>
+        <h2>Sources and further reading</h2>
+        <ul>
+          <li>
+            <a
+              href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages"
+              >GitHub Pages overview</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages"
+              >GitHub Pages workflows</a
+            >
+          </li>
+          <li>
+            <a href="https://docs.gitlab.com/user/project/pages/"
+              >GitLab Pages</a
+            >
+          </li>
+          <li>
+            <a href="https://docs.codeberg.org/codeberg-pages/"
+              >Codeberg Pages</a
+            >
+          </li>
+        </ul>
+      </section>
+      <nav aria-label="Lesson navigation">
+        <a href="../09-fixing-mistakes/index.html">← Fixing Mistakes</a> ·
+        <a href="../quick-reference/index.html"
+          >Next: Quick Reference and Vocabulary →</a
+        >
+      </nav>
+      <section>
+        <h2>Study questions</h2>
+        <p>Explain it in your own words, then open the answer.</p>
+        <details>
+          <summary>Does a successful push prove deployment succeeded?</summary>
+          <p>No. Check the deployment workflow and the actual live site.</p>
+        </details>
+        <details>
+          <summary>
+            Are repository hosting and website hosting the same service role?
+          </summary>
+          <p>
+            No. One stores source history; the other serves the website. A
+            platform may offer both.
+          </p>
+        </details>
+        <details>
+          <summary>Does Git require CI?</summary>
+          <p>No. Automated checks are additional workflow tools.</p>
+        </details>
+        <details>
+          <summary>
+            Can a static HTML form process and store submissions by itself?
+          </summary>
+          <p>No. That needs a suitable processing service or backend.</p>
+        </details>
+        <details>
+          <summary>
+            Why can a leading slash break a project-site stylesheet?
+          </summary>
+          <p>
+            It starts at the domain root rather than beneath the project’s path.
+          </p>
+        </details>
+      </section>
+    </main>
+  </body>
 </html>
