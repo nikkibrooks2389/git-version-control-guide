@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repositories and Files | Git &amp; Version Control Guide</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <main class="lesson">
+<a class="back-link" href="../index.html">← All topics</a><header><p class="eyebrow">GIT &amp; VERSION CONTROL · REFERENCE</p><h1>Repositories and Files</h1><p>Choose between starting history in an existing folder and copying a repository that already exists.</p></header><section><h2>At a glance</h2><div class="table-scroll"><table><thead><tr><th scope="col">Term or command</th><th scope="col">What it means</th><th scope="col">When to use it</th></tr></thead><tbody><tr><th scope="row">git init -b main</th><td>Creates Git metadata and starts a branch named main.</td><td>Use once when beginning tracking in your own project folder.</td></tr><tr><th scope="row">git clone URL</th><td>Creates a new local copy of an existing repository.</td><td>Use when the project already has a repository elsewhere.</td></tr><tr><th scope="row">.git/</th><td>Git’s internal metadata and history in an ordinary repository.</td><td>Let Git manage it. It is normally hidden in file managers.</td></tr><tr><th scope="row">Tracked / untracked</th><td>Tracked files are known to Git; untracked files are not yet in its index or history.</td><td>Read status to decide what to add.</td></tr><tr><th scope="row">.gitignore</th><td>Patterns for intentionally untracked files.</td><td>Exclude generated output, local settings, and secrets before adding them.</td></tr><tr><th scope="row">git check-ignore -v</th><td>Explains the ignore rule matching a path.</td><td>Use when a new file does not appear as expected.</td></tr></tbody></table></div></section><p class="note">Commands are examples, not an interactive terminal. Run them in your own learning repository after checking the prerequisites. Output, paths, commit IDs, and wording can vary. Host-specific instructions are labeled.</p><section><h2>Two starting routes</h2><p>For your own existing folder, open a terminal there and use init. For a project that already has a remote repository, clone it into a new folder instead. Cloning normally sets up origin for you; init does not create a remote.</p><pre><code>git init -b main</code></pre><p>Alternative: replace the URL with one copied from a real repository you can access. The domain below is a placeholder, not a real host to sign into.</p><pre><code>git clone https://git.example.org/your-name/my-website.git
+cd my-website</code></pre></section><section><h2>What the project looks like</h2><pre><code>my-website/
+├── .git/          Git-managed history and metadata
+├── .gitignore     Rules for untracked files
+├── index.html     Your website content
+└── css/
+    └── styles.css</code></pre><p>The .git folder belongs to this repository. Do not edit it by hand. Downloading a ZIP of source files is different from cloning: the ZIP generally does not include the Git history and remote configuration. Git does not track empty directories by themselves.</p></section><section><h2>Ignore local and generated files</h2><p>Create .gitignore in the project root before staging. These are example rules; adjust them for the project.</p><pre><code>.env
+.env.*
+!.env.example
+node_modules/
+dist/
+.DS_Store</code></pre><p>A trailing slash matches a directory. An asterisk is a wildcard; the exclamation mark makes an exception for a non-secret example configuration file. These names are patterns inside .gitignore, not terminal commands.</p><p class="note">Ignoring a file does not remove it from existing history or stop tracking a file already added. If a secret was committed, revoke or rotate it and follow your host’s removal guidance.</p></section><section><h2>Check what will be included</h2><p>Run inside the initialized project with a saved index.html and .gitignore. Short status uses ?? for untracked paths.</p><h3>Commands</h3><pre><code>git status --short
+git check-ignore -v .env</code></pre><h3>Example output</h3><div class="output"><pre><code>?? .gitignore
+?? index.html
+.gitignore:1:.env	.env</code></pre></div><p>Check-ignore reports the rule matching .env. A generated file should only be ignored if your project does not need it committed.</p></section><section><h2>Sources and further reading</h2><ul><li><a href="https://git-scm.com/docs/git-init">Git init</a></li><li><a href="https://git-scm.com/docs/git-clone">Git clone</a></li><li><a href="https://git-scm.com/docs/gitignore">Ignore rules</a></li><li><a href="https://git-scm.com/docs/git-check-ignore">Check ignore rules</a></li></ul></section><nav aria-label="Lesson navigation"><a href="../02-setup/index.html">← Setup and Tools</a> · <a href="../04-everyday-workflow/index.html">Next: Your Everyday Workflow →</a></nav><section><h2>Study questions</h2><p>Explain it in your own words, then open the answer.</p><details><summary>Should I use init or clone?</summary><p>Init starts history for your own folder; clone copies a repository that already exists.</p></details><details><summary>Does init create a GitHub repository?</summary><p>No. It creates local Git metadata.</p></details><details><summary>Does .gitignore erase a committed secret?</summary><p>No. It is not a history cleanup or credential-revocation tool.</p></details><details><summary>Does downloading a ZIP give me a normal Git clone?</summary><p>No. It generally contains files without Git history and remote settings.</p></details><details><summary>Why does Git not show my empty folder?</summary><p>Git tracks files, not empty directories by themselves.</p></details></section>
+  </main>
+</body>
+</html>
